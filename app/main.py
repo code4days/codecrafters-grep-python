@@ -11,6 +11,8 @@ def match_pattern(input_line, pattern):
         return any(c.isdigit() for c in input_line)
     elif pattern == "\\w":
         return any(c.isalnum() or c == "_" for c in input_line)
+    elif pattern.startswith("[^") and pattern.endswith("]"):
+        return all(c not in pattern[2:-1] for c in input_line)
     elif pattern.startswith("[") and pattern.endswith("]"):
         return any(c in pattern[1:-1] for c in input_line)
     else:
