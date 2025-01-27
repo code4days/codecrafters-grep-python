@@ -1,13 +1,14 @@
 import sys
-import re
 
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
 
 def match_pattern(input_line, pattern):
-    if re.search(pattern, input_line):
-        return True
+    if len(pattern) == 1:
+        return pattern in input_line
+    elif pattern == "\\d":
+        return any(c.isdigit() for c in input_line)
     else:
         raise RuntimeError(f"Unhandled pattern: {pattern}")
 
