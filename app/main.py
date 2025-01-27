@@ -1,12 +1,13 @@
 import sys
+import re
 
 # import pyparsing - available if you need it!
 # import lark - available if you need it!
 
 
 def match_pattern(input_line, pattern):
-    if len(pattern) == 1:
-        return pattern in input_line
+    if re.search(pattern, input_line):
+        return True
     else:
         raise RuntimeError(f"Unhandled pattern: {pattern}")
 
