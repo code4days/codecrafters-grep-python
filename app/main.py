@@ -5,6 +5,8 @@ import sys
 
 
 def match(input_line, pattern):
+    if pattern[0] == "^":
+        return match_pattern(input_line, pattern[1:])
     for i in range(len(input_line)):
         if match_pattern(input_line[i:], pattern):
             return True
