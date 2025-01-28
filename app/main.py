@@ -16,8 +16,9 @@ def match(input_line, pattern):
 def match_pattern(input_line, pattern):
     if not pattern:
         return True
+
     if not input_line:
-        return False
+        return True if pattern == "$" else False
 
     if pattern[0] == input_line[0]:
         return match_pattern(input_line[1:], pattern[1:])
