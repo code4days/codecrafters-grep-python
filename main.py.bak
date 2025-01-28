@@ -4,6 +4,34 @@ import sys
 # import lark - available if you need it!
 
 
+# def match(input_line, pattern):
+#     pattern_idx = 0
+#     input_idx = 0
+#     supported_patterns = ["w", "d"]
+#     while input_idx < len(input_line):
+#         curr_pattern = ""
+#         if pattern[pattern_idx] == "\\" and (
+#             pattern[pattern_idx + 1] in supported_patterns
+#         ):
+#             curr_pattern = pattern[pattern_idx : pattern_idx + 2]
+#         elif pattern[pattern_idx] == "[":
+#             right_bracket_idx = pattern_idx
+#             while pattern[right_bracket_idx] != "]":
+#                 right_bracket_idx += 1
+#             curr_pattern = pattern[pattern_idx : right_bracket_idx + 1]
+#         else:
+#             curr_pattern = pattern[pattern_idx]
+#
+#         if match_pattern(input_line[input_idx], curr_pattern):
+#             pattern_idx += len(curr_pattern)
+#             if pattern_idx == len(pattern):
+#                 return True
+#
+#         input_idx += 1
+#     return False
+#
+
+
 def match(input_line, pattern):
     for i in range(len(input_line)):
         if match_pattern(input_line[i:], pattern):
@@ -42,6 +70,22 @@ def match_pattern(input_line, pattern):
     return False
 
 
+# def match_pattern(input_line, pattern):
+#     if len(pattern) == 1:
+#         return pattern in input_line
+#     elif pattern == "\\d":
+#         return any(c.isdigit() for c in input_line)
+#     elif pattern == "\\w":
+#         return any(c.isalnum() or c == "_" for c in input_line)
+#     elif pattern.startswith("[^") and pattern.endswith("]"):
+#         return all(c not in pattern[2:-1] for c in input_line)
+#     elif pattern.startswith("[") and pattern.endswith("]"):
+#         return any(c in pattern[1:-1] for c in input_line)
+#     else:
+#         raise RuntimeError(f"Unhandled pattern: {pattern}")
+#
+
+
 def main():
     pattern = sys.argv[2]
     input_line = sys.stdin.read()
@@ -54,9 +98,12 @@ def main():
     print("Logs from your program will appear here!", file=sys.stderr)
 
     # Uncomment this block to pass the first stage
+    # if match_pattern(input_line, pattern):
     if match(input_line, pattern):
+        print("Match Found!")
         exit(0)
     else:
+        print("Match NOT Found!")
         exit(1)
 
 
