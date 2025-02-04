@@ -29,9 +29,14 @@ def match_pattern(input_line, pattern):
     if not input_line:
         return True if pattern == "$" else False
 
-    # caaats ca+ts
     if len(pattern) > 1 and pattern[1] == "+":
         return match_plus(input_line, pattern)
+
+    if len(pattern) > 1 and pattern[1] == "?":
+        if input_line[0] == pattern[0]:
+            return match_pattern(input_line[1:], pattern[2:])
+
+        return match_pattern(input_line, pattern[2:])
 
     if pattern[0] == input_line[0]:
         return match_pattern(input_line[1:], pattern[1:])
