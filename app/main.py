@@ -14,7 +14,7 @@ def match(input_line, pattern):
 
 
 def match_plus(input_line, pattern):
-    if input_line[0] != pattern[0]:
+    if pattern[0] != "." and input_line[0] != pattern[0]:
         return False
 
     return match_pattern(input_line[1:], pattern) or match_pattern(
@@ -38,7 +38,7 @@ def match_pattern(input_line, pattern):
 
         return match_pattern(input_line, pattern[2:])
 
-    if pattern[0] == input_line[0]:
+    if pattern[0] == "." or pattern[0] == input_line[0]:
         return match_pattern(input_line[1:], pattern[1:])
 
     if pattern[:2] == "\\d" and input_line[0].isdigit():
