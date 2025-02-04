@@ -29,8 +29,13 @@ def match_pattern(input_line, pattern):
     if not input_line:
         return True if pattern == "$" else False
 
-    if pattern[0] == "(" and pattern[-1] == ")":
-        for pattern in pattern[1:-1].split("|"):
+    if pattern[0] == "(":
+        right_paren_idx = 1
+        for i in range(1, len(pattern)):
+            right_paren_idx = i
+            if pattern[i] == ")":
+                break
+        for pattern in pattern[1:right_paren_idx].split("|"):
             if match_pattern(input_line, pattern):
                 return True
         return False
@@ -54,7 +59,7 @@ def match_pattern(input_line, pattern):
         return match_pattern(input_line[1:], pattern[2:])
 
     if pattern[0] == "[":
-        i = right_bracket_idx = 1
+        right_bracket_idx = 1
         for i in range(1, len(pattern)):
             right_bracket_idx = i
             if pattern[i] == "]":
