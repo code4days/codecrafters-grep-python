@@ -20,14 +20,6 @@ def match_plus(input_line, pattern):
     return match_pattern(input_line[1:], pattern) or match_pattern(
         input_line[1:], pattern[2:]
     )
-    # found_pattern = False
-    # for i, char in enumerate(input_line):
-    #     if char == pattern[0]:
-    #         found_pattern = True
-    #     else:
-    #         if found_pattern:
-    #             return match_pattern(input_line[i:], pattern[2:])
-    # return False
 
 
 def match_pattern(input_line, pattern):
