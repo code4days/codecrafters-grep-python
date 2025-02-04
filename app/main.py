@@ -29,6 +29,12 @@ def match_pattern(input_line, pattern):
     if not input_line:
         return True if pattern == "$" else False
 
+    if pattern[0] == "(" and pattern[-1] == ")":
+        for pattern in pattern[1:-1].split("|"):
+            if match_pattern(input_line, pattern):
+                return True
+        return False
+
     if len(pattern) > 1 and pattern[1] == "+":
         return match_plus(input_line, pattern)
 
