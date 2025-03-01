@@ -37,6 +37,8 @@ def match_pattern(original_input_line, input_line, pattern):
         return pattern in ["$", ")"]
 
     if pattern[0] == ")":
+        if not groups:
+            return False
         # print(f"pattern: {pattern}, input_line:{input_line}")
         # print(f"original: {original_input_line}, input_line: {input_line}")
         group_end_idx = len(original_input_line) - len(input_line)
@@ -158,7 +160,10 @@ def match_pattern(original_input_line, input_line, pattern):
             if pattern[i] == "]":
                 break
         if pattern[1] == "^":
-            if input_line[0] not in pattern[2:right_bracket_idx] + ",":
+            if (
+                input_line[0].isalnum()
+                and input_line[0] not in pattern[2:right_bracket_idx]
+            ):
                 if (
                     right_bracket_idx < len(pattern) - 1
                     and pattern[right_bracket_idx + 1] == "+"
@@ -204,7 +209,9 @@ def main():
 
     # You can use print statements as follows for debugging, they'll be visible when running tests.
     print("Logs from your program will appear here!", file=sys.stderr)
-
+    # echo -n "abc-def is abc-def, not efg, abc, or def" | ./your_program.sh -E "(([abc]+)-([def]+)) is \1, not ([^xyz]+), \2, or \3"
+    # input_line = "abc-def is abc-def, not efg, abc, or def"
+    # pattern = "(([abc]+)-([def]+)) is \\1, not ([^xyz]+), \\2, or \\3"
     # Uncomment this block to pass the first stage
     if match(input_line, input_line, pattern):
         print("match found")
