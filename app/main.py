@@ -29,7 +29,6 @@ groups = []
 
 
 def match_pattern(original_input_line, input_line, pattern):
-    # print(f"input_line: {input_line}, pattern:{pattern}")
     if not pattern:
         return True
 
@@ -39,23 +38,9 @@ def match_pattern(original_input_line, input_line, pattern):
     if pattern[0] == ")":
         if not groups:
             return False
-        # print(f"pattern: {pattern}, input_line:{input_line}")
-        # print(f"original: {original_input_line}, input_line: {input_line}")
         group_end_idx = len(original_input_line) - len(input_line)
-        # print(f"groups before pop: {groups}")
-        # print(f"pattern: {pattern}, input_line:{input_line}")
         group_number, group_start_idx = groups.pop()
-        # print(f"groups after pop: {groups}")
-
-        # print(
-        #     f"group_number: {group_number}, group_start_idx: {group_start_idx}, group_end_idx: {group_end_idx}"
-        # )
-        # print(
-        #     f"group_number: {group_number}, start: {group_start_idx}, end: {group_end_idx}"
-        # )
-        # print(f"pattern: {original_input_line[group_start_idx:group_end_idx]}")
         group_str[group_number] = original_input_line[group_start_idx:group_end_idx]
-        # print(f"group_str: {group_str}")
         return match_pattern(
             original_input_line,
             input_line,
@@ -70,12 +55,9 @@ def match_pattern(original_input_line, input_line, pattern):
                 break
 
         group_number = len(group_str) + 1
-        # print(f"group_number: {group_number}")
         group_str.setdefault(group_number, "")
         group_start_idx = len(original_input_line) - len(input_line)
         groups.append((group_number, group_start_idx))
-        # print(f"groups append: {groups}")
-        # print(f"groups after append: {groups}")
 
         if "|" in pattern[1:right_paren_idx]:
             for group_pattern in pattern[1:right_paren_idx].split("|"):
@@ -214,10 +196,8 @@ def main():
     # pattern = "(([abc]+)-([def]+)) is \\1, not ([^xyz]+), \\2, or \\3"
     # Uncomment this block to pass the first stage
     if match(input_line, input_line, pattern):
-        print("match found")
         exit(0)
     else:
-        print("match not found")
         exit(1)
 
 
